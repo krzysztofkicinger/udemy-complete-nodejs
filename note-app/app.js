@@ -7,12 +7,16 @@ console.log('Starting app...');
 const fileName = 'greetings.txt';
 const user = os.userInfo();
 
-appendFile(fileName, `\nHello + ${user.username}`);
+notes.addNote(`Hello ${user.username}`);
 
-function appendFile(file, text) {
-    fs.appendFile(file, text, function(error) {
-        if(error) {
-            console.log('Unable to write to file');
-        }
-    });
-}
+console.log(`Result: ${notes.add(1, 2)}`);
+
+// appendFile(fileName, `\nHello + ${user.username}`);
+
+// function appendFile(file, text) {
+//     fs.appendFile(file, text, function(error) {
+//         if(error) {
+//             console.log('Unable to write to file');
+//         }
+//     });
+// }
