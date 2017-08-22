@@ -22,3 +22,9 @@ Commands in the debug mode:
 
 In the file:
 * debugger; - sets breakpoint within a program
+
+## Debugging NodeJS App using Chrome Dev Tools
+
+1. Run application using: **node --inspect-brk <file>** (nodemon can be use always)
+2. Go to the: chrome://inspect (in chrome)
+3. Check Remote Target section and find application currently running
