@@ -8,6 +8,7 @@ const addNote = (title, body) => {
     const createdNote = { title, body };
     const notes = listNotes();
     storeNotes(_.uniqBy(_.concat(createdNote, notes), 'title'));
+    return createdNote;
 };
 
 const readNote = (title) => {
@@ -15,8 +16,10 @@ const readNote = (title) => {
 };
 
 const removeNote = (title) => {
-    const filteredNotes = _.reject(listNotes(), { title });
+    const notes = listNotes();
+    const filteredNotes = _.reject(notes, { title });
     storeNotes(filteredNotes);
+    return notes.length !== filteredNotes.length;
 };
 
 const listNotes = () => {
