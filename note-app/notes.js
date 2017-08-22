@@ -1,36 +1,36 @@
 const fs = require('fs');
 const _ = require('lodash');
 
-const fileName = 'notes.txt';
+const FILE_NAME = 'notes-data.json';
 const notes = new Map();
 
-// const initializeNotes = () => {
-//     fs.readFile(fileName, (error, data) => {
-//         const lines = _.split(_.toString(data), /\n/);
-//         lines.map(note => ({ id: _.uniqueId(), note })).forEach(note => {
-//             notes.set(note.id, note.note)
-//         });
-//     });
-// };
-
-
 const addNote = (title, body) => {
-    console.log('Adding note', title, body);
+    const createdNote = { title, body };
+    const notes = listNotes();
+    storeNotes(_.uniqBy(_.concat(createdNote, notes), 'title'));
 };
 
 const readNote = (title) => {
-    console.log('Reading note', title, body);
+    return _.filter(listNotes(), { title })[0];
 };
 
 const removeNote = (title) => {
-    console.log('Removing note', title);
+    const filteredNotes = _.reject(listNotes(), { title });
+    storeNotes(filteredNotes);
 };
 
 const listNotes = () => {
-    console.log('Listing notes')
+    const data = _.toString(loadNotes());
+    return _.isEmpty(data) ? [] : JSON.parse(data);
 };
 
+const storeNotes = (notes) => {
+    fs.writeFileSync(FILE_NAME, JSON.stringify(notes));
+};
 
+const loadNotes = () => {
+    return fs.readFileSync(FILE_NAME);
+};
 
 module.exports = {
     addNote,

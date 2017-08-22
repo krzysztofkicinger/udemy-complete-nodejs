@@ -18,10 +18,10 @@ switch(command) {
         notes.addNote(argv.title, argv.body);
         break;
     case 'list':
-        notes.listNotes();
+        console.log(notes.listNotes());
         break;
     case 'read':
-        notes.readNote(argv.title);
+        console.log(notes.readNote(argv.title));
         break;
     case 'remove':
         notes.removeNote(argv.title);
