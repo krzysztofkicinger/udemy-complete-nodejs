@@ -8,4 +8,5 @@
 
 ## Input arguments
 
-Use: **process.argv** - arguments array passed to the node object
+* Use: **process.argv** - arguments array passed to the node object
+* yargs - library for parsing and passing arguments to node applications
