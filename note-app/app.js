@@ -1,15 +1,22 @@
 const os = require('os');
 const fs = require('fs');
 const notes = require('./notes');
+const _ = require('lodash');
 
 console.log('Starting app...');
 
-const fileName = 'greetings.txt';
-const user = os.userInfo();
 
+const user = os.userInfo();
 notes.addNote(`Hello ${user.username}`);
 
-console.log(`Result: ${notes.add(1, 2)}`);
+const result = notes.add(1, 2);
+console.log(`Result: ${result}`);
+console.log(`Is string: ${_.isString(result)}`);
+console.log(`Create unique id: ${_.uniqueId()}`)
+
+const filteredArray = _.uniq(['Chris', 1, 'Chris', 1, 4, 3]);
+console.log(`Array: ${filteredArray}`);
+
 
 // appendFile(fileName, `\nHello + ${user.username}`);
 
