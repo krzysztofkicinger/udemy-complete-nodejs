@@ -8,9 +8,34 @@ console.log('Starting app...');
 // console.log(`Yargs arguments: `, yargs.argv);
 // console.log(`Process arguments: ${process.argv}`);
 
-const argv = yargs.argv;
-const command = argv['_'][0];
+const titleOptions = {
+    describe: 'Title of note',
+    demand: true,
+    alias: 't'
+};
 
+const bodyOptions = {
+    describe: 'The body of the node',
+    demand: true,
+    alias: 'b'
+};
+
+const argv = yargs
+    .command('add', 'Add a new note', {
+        title: titleOptions,
+        body: bodyOptions
+    })
+    .command('list', 'List all nodes')
+    .command('read', 'Read individual node', {
+        title: titleOptions,
+    })
+    .command('remove', 'Removes individual node', {
+        title: titleOptions,
+    })
+    .help()
+    .argv;
+
+const command = argv['_'][0];
 console.log('Command:', command);
 
 switch(command) {
