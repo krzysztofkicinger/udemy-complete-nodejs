@@ -11,9 +11,13 @@ const initializeNotes = () => {
     });
 };
 
+initializeNotes();
+
+
 module.exports.listNotes = () => notes;
 
 module.exports.addNote = (note) => {
     notes.set(_.uniqueId(), note);
     fs.appendFile(fileName, `\n${note}`, (error) => console.error(error));
 };
+
