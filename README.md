@@ -28,3 +28,8 @@ In the file:
 1. Run application using: **node --inspect-brk <file>** (nodemon can be use always)
 2. Go to the: chrome://inspect (in chrome)
 3. Check Remote Target section and find application currently running
+
+## Arrow Functions (object literals)
+
+1. Arrow functions do not bind a **this** keyword (this corresponds to the parent binding!!)
+2. Arrow functions do not bind an **arguments** variable
