@@ -4,6 +4,9 @@ const hbs = require('hbs');
 
 const app = express();
 
+// Register partial views that can be accessed in hbs {{ > <name_before_.hbs> }}
+hbs.registerPartials(`${__dirname}/public/partials`);
+
 // Configuration of hbs template engine
 app.set('view engine', 'hbs');
 // Where hbs views should be found (main page), specified in the response.render('name>', ...) method
