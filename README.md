@@ -7,6 +7,7 @@
 * lodash - library with useful methods
 * nodemon - entry point for the application that watches for changes and redeploys if necessary
 * request (https://www.npmjs.com/package/request) - Request is designed to be the simplest way possible to make http calls. It supports HTTPS and follows redirects by default
+* winston (https://www.npmjs.com/package/winston) - Logger
 
 ### Input arguments
 
@@ -45,3 +46,8 @@ In the file:
 ### Callback functions
 
 **Callback function** - function that is passed as an argument to another function that may be called
+
+### Promises
+
+1. Creation: new Promise((resolve, reject) => {...}))
+2. Once resolved or rejected promise cannot be changed (cannot resolve or reject in again)
