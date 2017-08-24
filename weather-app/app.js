@@ -1,6 +1,7 @@
 const geocode = require('./api/geocode/geocode');
 const forecast = require('./api/darksky/forecast');
 const yargs = require('yargs');
+const winston = require('winston');
 
 const argv = yargs
     .options({
@@ -20,8 +21,8 @@ geocode.geocodeAddress(argv.address, (errorMessage, result) => {
         const address = res;
         forecast.forecast(address.latitude, address.longitude, (errorMessage, result) => {
             handleRequest(errorMessage, result, res => {
-                console.log(`Address: ${address.address}`);
-                console.log(res)
+                winston.info(`Address: ${address.address}`);
+                winston.info(res)
             });
         });
     });
