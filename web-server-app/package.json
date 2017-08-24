@@ -12,6 +12,7 @@
   "dependencies": {
     "circular-json": "^0.3.3",
     "express": "^4.15.4",
+    "hbs": "^4.0.1",
     "nodemon": "^1.11.0"
   }
 }

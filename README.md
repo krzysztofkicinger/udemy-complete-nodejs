@@ -9,6 +9,7 @@
 * request (https://www.npmjs.com/package/request) - Request is designed to be the simplest way possible to make http calls. It supports HTTPS and follows redirects by default
 * winston (https://www.npmjs.com/package/winston) - Logger
 * express (https://expressjs.com/) - http servers
+* hbs (https://www.npmjs.com/package/hbs) - handlebars template plugin that can be used as a middleware for rendering html with express
 
 ### Input arguments
 
