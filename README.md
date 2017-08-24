@@ -42,3 +42,6 @@ In the file:
 
 ### Async Basics - Event Loop
 
+### Callback functions
+
+**Callback function** - function that is passed as an argument to another function that may be called
