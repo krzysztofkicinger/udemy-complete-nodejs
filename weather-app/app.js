@@ -21,16 +21,27 @@ request.get({
     },
     json: true
 }, (error, response, body) => {
-    if(response.statusCode === 200) {
-        console.log(`Formatted address: ${body.results[0].formatted_address}`)
-        console.log(`[Lat, Lng]: ${body.results[0].geometry.location.lat}, ${body.results[0].geometry.location.lng}`)
-        // console.log(`Body: `, prettyStringify(body));
-    } else {
-        console.log(`Error: ${error}`);
-        console.log(`Response:`, response);
+    if(error) {
+        console.log('Unable to connect to Google servers', error);
+    }
+    if(isOkRequest(response)) {
+        if(isAtLeastOneResult(body)) {
+            console.log(`Formatted address: ${body.results[0].formatted_address}`)
+            console.log(`[Lat, Lng]: ${body.results[0].geometry.location.lat}, ${body.results[0].geometry.location.lng}`)
+        } else {
+            console.log(response);
+        }
     }
 });
 
 const prettyStringify = (object) => {
     return JSON.stringify(object, undefined, 4);
+};
+
+const isOkRequest = (request) => {
+    return request.statusCode === 200;
+};
+
+const isAtLeastOneResult = (body) => {
+    return !(body.status === 'ZERO_RESULTS');
 };
