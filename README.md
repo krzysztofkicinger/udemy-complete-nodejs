@@ -6,7 +6,7 @@
 
 * lodash - library with useful methods
 * nodemon - entry point for the application that watches for changes and redeploys if necessary
-
+* request (https://www.npmjs.com/package/request) - Request is designed to be the simplest way possible to make http calls. It supports HTTPS and follows redirects by default
 
 ### Input arguments
 
