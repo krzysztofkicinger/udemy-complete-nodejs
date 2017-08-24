@@ -8,9 +8,15 @@ request.get({
     json: true
 }, (error, response, body) => {
     if(response.statusCode === 200) {
-        console.log(`Body: `, JSON.stringify(body));
+        console.log(`Formatted address: ${body.results[0].formatted_address}`)
+        console.log(`[Lat, Lng]: ${body.results[0].geometry.location.lat}, ${body.results[0].geometry.location.lng}`)
+        // console.log(`Body: `, prettyStringify(body));
     } else {
         console.log(`Error: ${error}`);
         console.log(`Response:`, response);
     }
 });
+
+const prettyStringify = (object) => {
+    return JSON.stringify(object, undefined, 4);
+};
