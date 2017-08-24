@@ -16,22 +16,7 @@ const argv = yargs
     .alias('h', 'help')
     .argv;
 
-geocode.geocodeAddress(argv.address, (errorMessage, result) => {
-    handleRequest(errorMessage, result, res => {
-        const address = res;
-        forecast.forecast(address.latitude, address.longitude, (errorMessage, result) => {
-            handleRequest(errorMessage, result, res => {
-                winston.info(`Address: ${address.address}`);
-                winston.info(res)
-            });
-        });
-    });
-});
-
-const handleRequest = (errorMessage, result, callback) => {
-    if(errorMessage) {
-        console.error(errorMessage);
-    } else {
-        callback(result);
-    }
-};
+geocode.geocodeAddress(argv.address)
+    .then(address => forecast.forecast(address.latitude, address.longitude))
+    .then(result => winston.info(result))
+    .catch(error => winston.error(error));
