@@ -13,10 +13,10 @@ app.use(express.static(`${__dirname}/public`));
 
 
 app.get('/', (request, response) => {
-    response.set({
-        'Content-Type': 'application/json'
+    response.render('index.hbs', {
+        title: 'Index page',
+        currentYear: new Date().getFullYear()
     });
-    response.send(circularJson.stringify(request));
 });
 
 app.get('/html', (request, response) => {
