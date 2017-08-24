@@ -12,12 +12,11 @@ const argv = yargs
     })
     .help()
     .argv;
-const address = argv.address;
 
 request.get({
     url: 'https://maps.googleapis.com/maps/api/geocode/json',
     qs: {
-        address: address
+        address: encodeURIComponent(argv.address)
     },
     json: true
 }, (error, response, body) => {
