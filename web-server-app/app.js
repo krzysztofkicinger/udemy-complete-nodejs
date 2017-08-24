@@ -15,6 +15,7 @@ app.use(express.static(`${__dirname}/public`));
 app.get('/', (request, response) => {
     response.render('index.hbs', {
         title: 'Index page',
+        welcomeMessage: 'Welcome to my website',
         currentYear: new Date().getFullYear()
     });
 });
