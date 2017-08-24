@@ -11,6 +11,7 @@ const argv = yargs
         }
     })
     .help()
+    .alias('h', 'help')
     .argv;
 
 request.get({
