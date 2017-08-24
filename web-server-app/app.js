@@ -10,6 +10,21 @@ app.get('/', (request, response) => {
     response.send(circularJson.stringify(request));
 });
 
+app.get('/html', (request, response) => {
+    response.send('<h1>Hello Express!</h1>');
+});
+
+app.get('/about', (request, response) => {
+    response.send('About Page')
+});
+
+
+app.get('/bad', (request, response) => {
+    response.json({
+        errorMessage: 'Unable to handle request'
+    })
+});
+
 app.listen(3000, () => {
     console.log('Express application starter callback');
 });
