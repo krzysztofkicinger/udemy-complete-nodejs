@@ -14,8 +14,6 @@ app.set('view engine', 'hbs');
 // Where hbs views should be found (main page), specified in the response.render('name>', ...) method
 app.set('views', `${__dirname}/public`);
 
-app.use(express.static(`${__dirname}/public`));
-
 // Defining middleware function
 app.use((request, response, next) => {
     fs.appendFile('server.log', `${new Date()}: ${request.method} ${request.url}\n`);
@@ -28,6 +26,8 @@ app.use((request, response, next) => {
         title: 'Maintenance'
     });
 });
+
+app.use(express.static(`${__dirname}/public`));
 
 hbs.registerHelper('getCurrentYear', () => new Date().getFullYear());
 hbs.registerHelper('screamIt', (text) => text.toUpperCase());
