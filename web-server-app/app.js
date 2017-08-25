@@ -57,6 +57,9 @@ app.get('/bad', (request, response) => {
     })
 });
 
-app.listen(3000, () => {
-    console.log('Express application starter callback');
+// Configuration for heroku
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+    console.log(`Server is up on port ${port}`);
 });
