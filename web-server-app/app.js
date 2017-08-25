@@ -1,6 +1,8 @@
 const express = require('express');
 const circularJson = require('circular-json');
 const hbs = require('hbs');
+const winston = require('winston');
+const fs = require('fs');
 
 const app = express();
 
@@ -13,6 +15,19 @@ app.set('view engine', 'hbs');
 app.set('views', `${__dirname}/public`);
 
 app.use(express.static(`${__dirname}/public`));
+
+// Defining middleware function
+app.use((request, response, next) => {
+    fs.appendFile('server.log', `${new Date()}: ${request.method} ${request.url}\n`);
+    // winston.info()
+    next(); // Must be called to move to the next handler
+});
+
+app.use((request, response, next) => {
+    response.render('technical_break.hbs', {
+        title: 'Maintenance'
+    });
+});
 
 hbs.registerHelper('getCurrentYear', () => new Date().getFullYear());
 hbs.registerHelper('screamIt', (text) => text.toUpperCase());
