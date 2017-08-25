@@ -14,12 +14,12 @@ app.set('views', `${__dirname}/public`);
 
 app.use(express.static(`${__dirname}/public`));
 
+hbs.registerHelper('getCurrentYear', () => new Date().getFullYear());
 
 app.get('/', (request, response) => {
     response.render('index.hbs', {
         title: 'Index page',
         welcomeMessage: 'Welcome to my website',
-        currentYear: new Date().getFullYear()
     });
 });
 
@@ -31,7 +31,6 @@ app.get('/about', (request, response) => {
     // Renders .hbs page (set as a view engine) and passes an object with arguments
     response.render('about.hbs', {
         title: 'About page',
-        currentYear: new Date().getFullYear()
     });
 });
 
