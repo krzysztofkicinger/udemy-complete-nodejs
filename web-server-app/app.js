@@ -15,6 +15,7 @@ app.set('views', `${__dirname}/public`);
 app.use(express.static(`${__dirname}/public`));
 
 hbs.registerHelper('getCurrentYear', () => new Date().getFullYear());
+hbs.registerHelper('screamIt', (text) => text.toUpperCase());
 
 app.get('/', (request, response) => {
     response.render('index.hbs', {
