@@ -21,11 +21,11 @@ app.use((request, response, next) => {
     next(); // Must be called to move to the next handler
 });
 
-app.use((request, response, next) => {
-    response.render('technical_break.hbs', {
-        title: 'Maintenance'
-    });
-});
+// app.use((request, response, next) => {
+//     response.render('technical_break.hbs', {
+//         title: 'Maintenance'
+//     });
+// });
 
 app.use(express.static(`${__dirname}/public`));
 
@@ -50,11 +50,16 @@ app.get('/about', (request, response) => {
     });
 });
 
-
 app.get('/bad', (request, response) => {
     response.json({
         errorMessage: 'Unable to handle request'
     })
+});
+
+app.get('/projects', (request, response) => {
+    response.render('projects.hbs', {
+        title: 'Portfolio',
+    });
 });
 
 // Configuration for heroku
