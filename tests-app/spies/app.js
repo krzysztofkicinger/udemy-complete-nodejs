@@ -1,4 +1,4 @@
-const db = require('./db');
+let db = require('./db');
 
 module.exports.handleSignup = (email, password) => {
   // Check if the email already exists
