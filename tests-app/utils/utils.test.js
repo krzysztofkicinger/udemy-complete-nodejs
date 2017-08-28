@@ -55,3 +55,11 @@ it('Should async add two numbers', (done) => {
         done();
     });
 });
+
+it('Should async square a number', (done) => {
+    utils.asyncSquare(4, (square) => {
+        expect(square).toBeA('number').toBe(16);
+        done();
+    });
+});
+

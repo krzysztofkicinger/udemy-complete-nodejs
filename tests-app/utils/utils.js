@@ -8,6 +8,12 @@ module.exports.asyncAdd = (a, b, callback) => {
 
 module.exports.square = (x) => Math.pow(x, 2);
 
+module.exports.asyncSquare = (a, callback) => {
+    setTimeout(() => {
+        callback(Math.pow(a, 2));
+    }, 1000);
+};
+
 module.exports.setName = (user, fullName) => {
     const names = fullName.split(' ');
     user.firstName = names[0];
