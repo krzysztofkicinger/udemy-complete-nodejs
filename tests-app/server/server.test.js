@@ -1,4 +1,5 @@
 const request = require('supertest');
+const expect = require('expect');
 const app = require('./server');
 
 describe('GET /', () => {
@@ -10,7 +11,7 @@ describe('GET /', () => {
                 response.body = 'Hello World!'
             })
             .end(done);
-    })
+    });
 
     it('GET /error should respond with error message', (done) => {
         request(app)
@@ -19,6 +20,11 @@ describe('GET /', () => {
             .expect(404, {
                 error: 'Page not found.'
             })
+            .expect((response) => {
+                expect(response.body).toInclude({
+                    error: 'Page not found.'
+                });
+            })
             .end(done);
-    })
+    });
 });
