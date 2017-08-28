@@ -14,6 +14,19 @@ app.get('/error', (request, response) => {
         });
 });
 
+app.get('/users', (request, response) => {
+    response.json([{
+        name: 'Andrew',
+        age: 25
+    }, {
+        name: 'John',
+        age: 22
+    }, {
+        name: 'Chris',
+        age: 35
+    }])
+});
+
 app.listen(3000);
 
 module.exports = app;

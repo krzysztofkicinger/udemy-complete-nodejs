@@ -27,4 +27,20 @@ describe('GET /', () => {
             })
             .end(done);
     });
+
+    it('GET /users should respond with table of users', (done) => {
+        request(app)
+            .get('/users')
+            .expect('Content-Type', 'application/json; charset=utf-8')
+            .expect(200)
+            .expect((response) => {
+                expect(response.body)
+                    .toBeA('array')
+                    .toInclude({
+                        name: 'John',
+                        age: 22
+                    });
+            })
+            .end(done);
+    });
 });
