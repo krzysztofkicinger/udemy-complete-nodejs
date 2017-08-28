@@ -11,4 +11,14 @@ describe('GET /', () => {
             })
             .end(done);
     })
+
+    it('GET /error should respond with error message', (done) => {
+        request(app)
+            .get('/error')
+            .expect('Content-Type', 'application/json; charset=utf-8')
+            .expect(404, {
+                error: 'Page not found.'
+            })
+            .end(done);
+    })
 });
