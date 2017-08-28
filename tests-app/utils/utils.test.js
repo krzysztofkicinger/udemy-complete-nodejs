@@ -48,3 +48,10 @@ it('Should have first name and last name with proper values', () => {
             location: 'Chicago'
         });
 });
+
+it('Should async add two numbers', (done) => {
+    utils.asyncAdd(4, 3, (sum) => {
+        expect(sum).toBeA('number').toBe(7);
+        done();
+    });
+});
