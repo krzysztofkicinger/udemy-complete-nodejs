@@ -7,15 +7,15 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, db) => {
     }
     console.log('Connected to MongoDB server');
 
-    // db.collection('Todos').insertOne({
-    //     test: 'Something to do',
-    //     completed: false
-    // }, (error, result) => {
-    //     if(error) {
-    //         console.log('Unable to insert todo', error);
-    //     }
-    //     console.log(JSON.stringify(result.ops, undefined, 4));
-    // });
+    db.collection('Todos').insertOne({
+        test: 'Something to do',
+        completed: false
+    }, (error, result) => {
+        if(error) {
+            console.log('Unable to insert todo', error);
+        }
+        console.log(JSON.stringify(result.ops, undefined, 4));
+    });
 
     // db.collection('Users').insertOne({
     //     name: 'John',
@@ -28,36 +28,64 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, db) => {
     //     console.log(JSON.stringify(result.ops, undefined, 4));
     // });
 
-    const cursor = db.collection('Todos').find();
-    cursor.toArray().then((docs) => {
-        // console.log(docs);
-        console.log(JSON.stringify(docs, undefined, 2));
-    }, (error) => {
-        console.log(error);
-    });
+    // FETCHING DATA
+    // const cursor = db.collection('Todos').find();
+    // cursor.toArray().then((docs) => {
+    //     // console.log(docs);
+    //     console.log(JSON.stringify(docs, undefined, 2));
+    // }, (error) => {
+    //     console.log(error);
+    // });
+    //
+    // const notCompletedTodosCursor = db.collection('Todos').find({
+    //     completed: false
+    // });
+    // notCompletedTodosCursor.toArray().then((docs) => {
+    //     // console.log(docs);
+    //     console.log(JSON.stringify(docs, undefined, 2));
+    // }, (error) => {
+    //     console.log(error);
+    // });
+    //
+    // const todoByIdCursor = db.collection('Todos').find({
+    //     _id: new ObjectID('59a417543d1e5a1bd0db3c08')
+    // });
+    // todoByIdCursor.toArray().then((docs) => {
+    //     // console.log(docs);
+    //     console.log(JSON.stringify(docs, undefined, 2));
+    // }, (error) => {
+    //     console.log(error);
+    // });
+    //
+    // db.collection('Todos').find().count().then(count => {
+    //     console.log(`Todos count: ${count}`)
+    // });
 
-    const notCompletedTodosCursor = db.collection('Todos').find({
-        completed: false
-    });
-    notCompletedTodosCursor.toArray().then((docs) => {
-        // console.log(docs);
-        console.log(JSON.stringify(docs, undefined, 2));
-    }, (error) => {
-        console.log(error);
-    });
+    //deleteMany - deletes all documents that matches the criteria
+    // db.collection('Todos').deleteMany({
+    //     _id: new ObjectID('59a417543d1e5a1bd0db3c08')
+    // }).then(result => {
+    //     console.log(result);
+    // });
 
-    const todoByIdCursor = db.collection('Todos').find({
+    //deleteOne - deletes one of all objects that matches the criteria
+    // db.collection('Todos').deleteOne({
+    //     _id: new ObjectID('59a417543d1e5a1bd0db3c08')
+    // }).then(result => {
+    //     console.log(result);
+    // });
+
+    //findOneAndDelete
+    // { lastErrorObject: { n: 1 },
+    // value:
+    // { _id: 59a417543d1e5a1bd0db3c08,
+    //     test: 'Something to do',
+    //     completed: false },
+    // ok: 1 }
+    db.collection('Todos').findOneAndDelete({
         _id: new ObjectID('59a417543d1e5a1bd0db3c08')
-    });
-    todoByIdCursor.toArray().then((docs) => {
-        // console.log(docs);
-        console.log(JSON.stringify(docs, undefined, 2));
-    }, (error) => {
-        console.log(error);
-    });
-
-    db.collection('Todos').find().count().then(count => {
-        console.log(`Todos count: ${count}`)
+    }).then(result => {
+        console.log(result);
     });
 
     db.close();
