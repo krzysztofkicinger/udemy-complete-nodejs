@@ -13,11 +13,11 @@ app.use(bodyParser.json());
 app.post('/todos', (request, response) => {
     new Todo({ text: request.body.text }).save()
         .then(todo => {
-            winston.info('Todo has been created', todo);
+            // winston.info('Todo has been created', todo);
             response.status(201).send(todo);
         })
         .catch(error => {
-            winston.error('Error occured during todo creation', error);
+            // winston.error('Error occured during todo creation', error);
             response.status(400).send(error);
         });
 });
@@ -33,3 +33,5 @@ app.get('/todos/:id', (request, response) => {
 app.listen(3000, () => {
     winston.info(`Server is listening on port ${3000}`)
 });
+
+module.exports = app;
