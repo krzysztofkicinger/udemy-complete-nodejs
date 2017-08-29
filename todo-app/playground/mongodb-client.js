@@ -82,11 +82,32 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (error, db) => {
     //     test: 'Something to do',
     //     completed: false },
     // ok: 1 }
-    db.collection('Todos').findOneAndDelete({
-        _id: new ObjectID('59a417543d1e5a1bd0db3c08')
-    }).then(result => {
-        console.log(result);
-    });
+
+    // db.collection('Todos').findOneAndDelete({
+    //     _id: new ObjectID('59a417543d1e5a1bd0db3c08')
+    // }).then(result => {
+    //     console.log(result);
+    // });
+
+    db.collection('Todos').findOneAndUpdate({
+        _id: new ObjectID('59a41c6fd13364208ce34ab4'),
+    }, {
+        $set: {
+            completed: true
+        }
+    }, {
+        returnOriginal: false
+    }).then(result => console.log(result));
+
+    db.collection('Users').findOneAndUpdate({
+        _id: new ObjectID('59a417cc166c2d2008801235'),
+    }, {
+        $inc: {
+            age: 1
+        }
+    }, {
+        returnOriginal: false
+    }).then(result => console.log(result));
 
     db.close();
 });
