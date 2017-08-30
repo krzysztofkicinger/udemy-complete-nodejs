@@ -8,6 +8,7 @@ const winston = require('winston');
 
 
 const app = express();
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 
@@ -49,8 +50,8 @@ app.get('/todos/:id', (request, response) => {
     console.log(`Id: `, request.params.id);
 });
 
-app.listen(3000, () => {
-    winston.info(`Server is listening on port ${3000}`)
+app.listen(port, () => {
+    winston.info(`Server is listening on port ${port}`)
 });
 
 module.exports = app;
