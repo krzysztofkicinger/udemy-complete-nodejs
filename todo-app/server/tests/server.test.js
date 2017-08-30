@@ -2,6 +2,7 @@ const expect = require('expect');
 const request = require('supertest');
 const app = require('../server');
 const Todo = require('../model/Todo');
+const { ObjectID } = require('mongodb');
 
 beforeEach((done) => {
     Todo.remove({})
@@ -87,13 +88,28 @@ describe('GET /todos', () => {
                     .get(`/todos/${id}`)
                     .expect(200)
                     .expect(response => {
-                        console.log(response.body);
                         expect(response.body).toBeA('object');
                         expect(response.body._id).toEqual(id);
                     })
                     .end(done);
             });
         });
+
+        it('Should return 404 with when id is not valid', (done) => {
+            request(app)
+                .get(`/todos/non_valid_id`)
+                .expect(404)
+                .end(done);
+        });
+
+        it('Should return 404 for nonexisting id', (done) => {
+            const id = new ObjectID().toHexString();
+            request(app)
+                .get(`/todos/${id}`)
+                .expect(404)
+                .end(done);
+        });
+
 
     });
 

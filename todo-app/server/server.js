@@ -32,12 +32,20 @@ app.get('/todos', (request, response) => {
 });
 
 app.get('/todos/:id', (request, response) => {
-    Todo.findById(request.params.id)
-        .then(todo => {
-            response.status(200).send(todo);
-        }).catch(error => {
-            response.status(400).send(error);
-        });
+    const id = request.params.id;
+    console.log(`Id: ${id}`);
+    if(!ObjectID.isValid(id)) {
+        response.status(404).send('Id not valid.');
+    } else {
+        Todo.findById(id).then(todo => {
+                if(!todo) {
+                    response.status(404).send();
+                }
+                response.status(200).send(todo);
+            }).catch(error => response.status(400).send(error));
+
+    }
+
     console.log(`Id: `, request.params.id);
 });
 
