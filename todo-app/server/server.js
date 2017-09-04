@@ -50,6 +50,20 @@ app.get('/todos/:id', (request, response) => {
     console.log(`Id: `, request.params.id);
 });
 
+app.delete('/todos/:id', (request, response) => {
+    const id = request.params.id;
+    if(!ObjectID.isValid(id)) {
+        response.status(404).send('Id not valid.');
+    } else {
+        Todo.findByIdAndRemove(id).then(todo => {
+            if(!todo) {
+                response.status(404).send();
+            }
+            response.status(200).send(todo);
+        }).catch(error => response.status(400).send(error));
+    }
+});
+
 app.listen(port, () => {
     winston.info(`Server is listening on port ${port}`)
 });
