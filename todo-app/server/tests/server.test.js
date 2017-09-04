@@ -114,3 +114,35 @@ describe('GET /todos', () => {
     });
 
 });
+
+describe('DETELE /todos/:id', () => {
+
+    let id;
+
+    beforeEach((done) => {
+        new Todo({
+            text: 'First test todo'
+        }).save().then(todo => {
+            id = todo._id;
+            done();
+        });
+    });
+
+    it('Should delete document when called', done => {
+        request(app)
+            .delete(`/todos/${id}`)
+            .expect(200)
+            .expect(response => {
+                expect(response.body._id).toEqual(id);
+            })
+            .end(done);
+    });
+
+    it('Should return 400 if invalid id', done => {
+        request(app)
+            .delete(`/todos/non_valid_id`)
+            .expect(404)
+            .end(done);
+    })
+
+});
