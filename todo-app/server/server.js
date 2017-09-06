@@ -7,7 +7,6 @@ const User = require('./model/User');
 const winston = require('winston');
 const _ = require('lodash');
 
-
 const app = express();
 const port = process.env.PORT || 3000;
 
