@@ -7,10 +7,15 @@ const User = require('./model/User');
 const winston = require('winston');
 const _ = require('lodash');
 
+const usersRouter = require('./routes/users');
+
 const app = express();
 const port = process.env.PORT || 3000;
 
+
 app.use(bodyParser.json());
+
+app.use('/users', usersRouter);
 
 app.post('/todos', (request, response) => {
     new Todo({ text: request.body.text }).save()
