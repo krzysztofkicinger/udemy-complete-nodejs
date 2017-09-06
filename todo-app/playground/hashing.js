@@ -21,8 +21,8 @@ const token = {
 // Client Side
 const resultHash = SHA256(JSON.stringify(token.data) + salt).toString();
 
-data.id = 5;
-const resultHash = SHA256(JSON.stringify(token.data) + salt).toString();
+// data.id = 5;
+// const resultHash = SHA256(JSON.stringify(token.data) + salt).toString();
 
 logger.info(`From token --- sha256 ---> ${token.hash}`);
 logger.info(`From resultHash --- sha256 ---> ${resultHash}`);
