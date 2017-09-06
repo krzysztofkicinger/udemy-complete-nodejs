@@ -1,7 +1,7 @@
 const Router = require('express').Router;
 const User = require('../model/User');
 const _ = require('lodash');
-
+const authenticate = require('../middleware/authentication');
 const router = Router();
 
 router.post('/', (request, response) => {
@@ -22,6 +22,13 @@ router.post('/', (request, response) => {
                 .header('x-auth', token)
                 .send(user);
         }).catch(error => response.status(400).send(error));
+});
+
+/*
+    The user object is set in the authenticate middleware function
+ */
+router.get('/me', authenticate, (request, response) => {
+    return response.status(200).send(request.user);
 });
 
 module.exports = router;
