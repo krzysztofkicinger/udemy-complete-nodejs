@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const Todo = require('./model/Todo');
 const User = require('./model/User');
 const winston = require('winston');
+const _ = require('lodash');
 
 
 const app = express();
@@ -62,6 +63,35 @@ app.delete('/todos/:id', (request, response) => {
             response.status(200).send(todo);
         }).catch(error => response.status(400).send(error));
     }
+});
+
+app.patch('/todos/:id', (request, response) => {
+    const id = request.params.id;
+    const body = _.pick(request.body, ['text', 'completed']);
+
+    if(!ObjectID.isValid(id)) {
+        response.status(404).send('Id not valid');
+    }
+
+    if(_.isBoolean(body.completed) && body.completed) {
+        body.completedAt = new Date().getTime();
+    } else {
+        body.completed = false;
+        body.completedAt = null;
+    }
+
+    Todo.findByIdAndUpdate(id, {
+        $set: body
+    }, {
+        new: true
+    }).then(todo => {
+        if(!todo) {
+            response.status(404).send();
+        }
+        response.status(200).send(todo);
+    }).catch(error => {
+        response.status(400).send(error);
+    })
 });
 
 app.listen(port, () => {

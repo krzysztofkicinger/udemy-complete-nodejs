@@ -146,3 +146,60 @@ describe('DETELE /todos/:id', () => {
     })
 
 });
+
+describe('PATH /todos/:id', () => {
+
+    const text = 'New todo description';
+
+    let id;
+
+    beforeEach((done) => {
+        new Todo({
+            text: 'First test todo'
+        }).save().then(todo => {
+            id = todo._id;
+            done();
+        });
+    });
+
+    it('Should update document when called', done => {
+        request(app)
+            .patch(`/todos/${id}`)
+            .send({
+                text
+            })
+            .expect(200)
+            .expect(response => {
+                expect(response.body._id).toEqual(id);
+                expect(response.body.text).toEqual(text);
+                expect(response.body.completed).toEqual(false);
+                expect(response.body.completedAt).toNotExist();
+            })
+            .end(done);
+    });
+
+    it('Should complete todo when passed completed flag', done => {
+        request(app)
+            .patch(`/todos/${id}`)
+            .send({
+                text,
+                completed: true
+            })
+            .expect(200)
+            .expect(response => {
+                expect(response.body._id).toEqual(id);
+                expect(response.body.text).toEqual(text);
+                expect(response.body.completed).toEqual(true);
+                expect(response.body.completedAt).toExist();
+            })
+            .end(done);
+    });
+
+    it('Should return 400 if invalid id', done => {
+        request(app)
+            .patch(`/todos/non_valid_id`)
+            .expect(404)
+            .end(done);
+    })
+
+});
