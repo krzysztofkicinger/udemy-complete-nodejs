@@ -2,6 +2,7 @@ const logger = require('winston');
 const {
     SHA256
 } = require('crypto-js');
+const bcrypt = require('bcryptjs');
 
 const message = 'I\'m a user number 3';
 const hashedMessage = SHA256(message).toString();
@@ -26,3 +27,16 @@ const resultHash = SHA256(JSON.stringify(token.data) + salt).toString();
 
 logger.info(`From token --- sha256 ---> ${token.hash}`);
 logger.info(`From resultHash --- sha256 ---> ${resultHash}`);
+
+let hashedPassword;
+const password = '123abc!';
+bcrypt.genSalt(10, (error, salt) => {
+    bcrypt.hash(password, salt, (error, hash) => {
+        console.log("Hash: " + hash);
+        hashedPassword = hash;
+
+        bcrypt.compare(password, hashedPassword, (error, result) => {
+            console.log(result);
+        });
+    })
+});
