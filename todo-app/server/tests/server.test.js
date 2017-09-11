@@ -3,12 +3,9 @@ const request = require('supertest');
 const app = require('../server');
 const Todo = require('../model/Todo');
 const { ObjectID } = require('mongodb');
+const { todos, populateTodos } = require('./seed/seed');
 
-beforeEach((done) => {
-    Todo.remove({})
-        .then(() => done())
-        .catch(error => console.log(error));
-});
+beforeEach(populateTodos);
 
 describe('POST /todos', () => {
 
@@ -26,8 +23,8 @@ describe('POST /todos', () => {
                 }
 
                 Todo.find().then((todos) => {
-                    expect(todos.length).toBe(1);
-                    expect(todos[0].text).toBe(text);
+                    expect(todos.length).toBe(3);
+                    // expect(todos[0].text).toBe(text);
                     done();
                 }).catch(error => console.log(error));
             });
@@ -47,7 +44,7 @@ describe('POST /todos', () => {
                 }
 
                 Todo.find().then((todos) => {
-                    expect(todos.length).toBe(0);
+                    expect(todos.length).toBe(2);
                     done();
                 }).catch(error => console.log(error));
             });
@@ -56,16 +53,6 @@ describe('POST /todos', () => {
 });
 
 describe('GET /todos', () => {
-
-    beforeEach((done) => {
-        Todo.insertMany([{
-            text: 'First test todo'
-        }, {
-            text: 'Second test todo'
-        }])
-            .then(() => done())
-            .catch(error => console.log(error));
-    });
 
     it('Should return all todos in the database', (done) => {
         const text = 'Text todo text';
@@ -120,9 +107,7 @@ describe('DETELE /todos/:id', () => {
     let id;
 
     beforeEach((done) => {
-        new Todo({
-            text: 'First test todo'
-        }).save().then(todo => {
+        Todo.findOne({}).then(todo => {
             id = todo._id;
             done();
         });
@@ -149,15 +134,13 @@ describe('DETELE /todos/:id', () => {
 
 describe('PATH /todos/:id', () => {
 
-    const text = 'New todo description';
-
     let id;
+    let text;
 
     beforeEach((done) => {
-        new Todo({
-            text: 'First test todo'
-        }).save().then(todo => {
+        Todo.findOne({}).then(todo => {
             id = todo._id;
+            text = todo.text;
             done();
         });
     });
