@@ -285,4 +285,41 @@ describe('POST /users', () => {
             .end(done);
     });
 
+    describe('/login', () => {
+
+        it('Should enable login user with correct credentials', (done) => {
+            const user = users[0];
+
+            request(app)
+                .post('/users/login')
+                .send({
+                    email: user.email,
+                    password: user.password
+                })
+                .expect(200)
+                .expect(response => {
+                    expect(response.headers['x-auth']).toExist();
+                })
+                .end(done);
+        });
+
+        it('Should not login user when wrong credentials are passed', (done) => {
+            const email = users[0].email;
+            const invalid_password = 'InvalidPassword';
+
+            request(app)
+                .post('/users/login')
+                .send({
+                    email: email,
+                    password: invalid_password
+                })
+                .expect(400)
+                .expect(response => {
+                    expect(response.headers['x-auth']).toNotExist();
+                })
+                .end(done);
+        })
+
+    });
+
 });
