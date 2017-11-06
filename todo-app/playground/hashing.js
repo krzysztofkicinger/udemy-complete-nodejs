@@ -31,6 +31,7 @@ logger.info(`From resultHash --- sha256 ---> ${resultHash}`);
 let hashedPassword;
 const password = '123abc!';
 bcrypt.genSalt(10, (error, salt) => {
+    console.log(`Salt: ${salt}`);
     bcrypt.hash(password, salt, (error, hash) => {
         console.log("Hash: " + hash);
         hashedPassword = hash;
@@ -40,3 +41,5 @@ bcrypt.genSalt(10, (error, salt) => {
         });
     })
 });
+
+// console.log(`Salt: ${bcrypt.genSaltSync(10)}`);
